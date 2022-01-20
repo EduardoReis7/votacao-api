@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Getter
 @Setter
@@ -17,5 +18,6 @@ public class AssociadoDto {
 
     private Long id;
     private String nome;
+    @CPF(message = "CPF inválido!")
     private String cpf;
 }

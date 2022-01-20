@@ -33,7 +33,6 @@ public class AssociadoService {
 
     public Associado editar(Long id, Associado novo){
 
-        Optional<Associado> optAssociado = this.repository.findById(id);
         buscarPorId(id);
         novo.setId(id);
         return this.repository.save(novo);
