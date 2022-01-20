@@ -26,9 +26,7 @@ public class AssociadoService {
     }
 
     public Associado buscarPorId(Long id) {
-
-        Optional<Associado> optAssociado = this.repository.findById(id);
-        return optAssociado.orElseThrow(() -> new NaoEncontradoException("Associado não encontrado."));
+        return this.repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Associado não encontrado."));
     }
 
     public Associado editar(Long id, Associado novo){
