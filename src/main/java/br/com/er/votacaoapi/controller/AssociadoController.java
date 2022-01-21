@@ -38,21 +38,21 @@ public class AssociadoController {
                 .body(this.converter.entityToDto(this.service.novo(this.converter.dtoToEntity(associadoDto))));
     }
 
-    @Operation(summary = "Retorna uma lista de associados.")
+    @Operation(summary = "Retorna uma lista com todos associados.")
     @GetMapping
     public ResponseEntity<List<AssociadoDto>> buscarTodos() {
 
         return ResponseEntity.ok(this.converter.listEntityToListDto(this.service.buscarTodos()));
     }
 
-    @Operation(summary = "Retorna um associado.")
+    @Operation(summary = "Busca um associado pelo id.")
     @GetMapping("/{id}")
     public ResponseEntity<AssociadoDto> buscar(@PathVariable("id") Long id) {
 
         return ResponseEntity.ok(this.converter.entityToDto(this.service.buscarPorId(id)));
     }
 
-    @Operation(summary = "Edita um associado.")
+    @Operation(summary = "Edita as informações de um associado.")
     @PutMapping("/{id}")
     public ResponseEntity<AssociadoDto> editar(@PathVariable("id") Long id, @RequestBody @Valid AssociadoDto associadoDto) {
 
