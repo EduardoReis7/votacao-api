@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -19,9 +18,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SessaoDto {
+public class SessaoComVotosDto {
 
     private Long id;
     private Long duracao;
-    private Pauta pauta;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
+    private PautaDto pauta;
+    private List<VotoOutDto> votos;
 }

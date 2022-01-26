@@ -1,32 +1,51 @@
 package br.com.er.votacaoapi.controller.converter;
 
-import br.com.er.votacaoapi.model.dto.SessaoDto;
+import br.com.er.votacaoapi.model.dto.SessaoComVotosDto;
+import br.com.er.votacaoapi.model.dto.SessaoInDto;
+import br.com.er.votacaoapi.model.dto.SessaoOutDto;
 import br.com.er.votacaoapi.model.entity.Sessao;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@AllArgsConstructor
+@Component
 public class SessaoConverter {
 
-    public SessaoDto entityToDto(Sessao entity) {
-        return SessaoDto.builder()
+    private final PautaConverter pautaConverter;
+    private final VotoConverter votoConverter;
+
+    public SessaoOutDto entityToSessaoOutDto(Sessao entity) {
+        return SessaoOutDto.builder()
                 .id(entity.getId())
                 .duracao(entity.getDuracao())
-                .pauta(entity.getPauta())
+                .dataInicio(entity.getDataInicio())
+                .dataFim(entity.getDataFim())
+                .pauta(this.pautaConverter.entityToDto(entity.getPauta()))
                 .build();
     }
 
-    public Sessao dtoToEntity(SessaoDto dto) {
+    public Sessao dtoToEntity(SessaoInDto dto) {
         return Sessao.builder()
                 .id(dto.getId())
+                .idPauta(dto.getIdPauta())
                 .duracao(dto.getDuracao())
-                .pauta(dto.getPauta())
+                .build();
+    }
+    public List<SessaoOutDto> listEntityToListDto(List<Sessao> entities) {
+        return entities.stream().map(this::entityToSessaoOutDto).collect(Collectors.toList());
+    }
+
+    public SessaoComVotosDto sessaoToSessaoComVotos(Sessao sessao) {
+        return SessaoComVotosDto.builder()
+                .id(sessao.getId())
+                .dataInicio(sessao.getDataInicio())
+                .dataFim(sessao.getDataFim())
+                .pauta(this.pautaConverter.entityToDto(sessao.getPauta()))
+                .votos(this.votoConverter.listEntityToListDto(sessao.getVotos()))
                 .build();
     }
 
-    public List<SessaoDto> listEntityToListDto(List<Sessao> entities) {
-        return entities.stream().map(this::entityToDto).collect(Collectors.toList());
-    }
 }

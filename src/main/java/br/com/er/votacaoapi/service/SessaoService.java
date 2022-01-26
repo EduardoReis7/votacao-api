@@ -26,16 +26,6 @@ public class SessaoService {
         return this.repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Sessão não encontrada."));
     }
 
-    public Sessao editar(Long id, Sessao novo) {
-        buscar(id);
-        novo.setId(id);
-        return repository.save(novo);
-    }
-
-    public void excluir(Long id) {
-        this.repository.deleteById(id);
-    }
-
     public void excluirTudo() {
         this.repository.deleteAll();
     }

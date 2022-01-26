@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,13 +24,13 @@ public class AssociadoService {
         return this.repository.findAll();
     }
 
-    public Associado buscarPorId(Long id) {
+    public Associado buscar(Long id) {
         return this.repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Associado não encontrado."));
     }
 
     public Associado editar(Long id, Associado novo){
 
-        buscarPorId(id);
+        buscar(id);
         novo.setId(id);
         return this.repository.save(novo);
     }

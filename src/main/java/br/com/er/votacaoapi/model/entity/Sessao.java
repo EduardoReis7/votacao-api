@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,9 @@ public class Sessao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long duracao;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
+    private Long idPauta;
     @OneToOne
     private Pauta pauta;
     @OneToMany

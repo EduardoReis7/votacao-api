@@ -2,12 +2,12 @@ package br.com.er.votacaoapi.controller.converter;
 
 import br.com.er.votacaoapi.model.dto.PautaDto;
 import br.com.er.votacaoapi.model.entity.Pauta;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class PautaConverter {
 
     public PautaDto entityToDto(Pauta entity) {

@@ -26,10 +26,12 @@ public class Voto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idVoto;
+    private Long id;
     private VotoEnum voto;
+    private Long idSessao;
     @ManyToOne
     private Sessao sessao;
+    private Long idAssociado;
     @OneToOne
     private Associado associado;
 }

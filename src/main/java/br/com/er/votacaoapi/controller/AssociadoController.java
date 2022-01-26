@@ -49,7 +49,7 @@ public class AssociadoController {
     @GetMapping("/{id}")
     public ResponseEntity<AssociadoDto> buscar(@PathVariable("id") Long id) {
 
-        return ResponseEntity.ok(this.converter.entityToDto(this.service.buscarPorId(id)));
+        return ResponseEntity.ok(this.converter.entityToDto(this.service.buscar(id)));
     }
 
     @Operation(summary = "Edita as informações de um associado.")

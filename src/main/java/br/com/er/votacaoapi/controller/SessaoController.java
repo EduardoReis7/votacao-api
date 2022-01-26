@@ -1,18 +1,19 @@
 package br.com.er.votacaoapi.controller;
 
+import br.com.er.votacaoapi.business.SessaoBusiness;
 import br.com.er.votacaoapi.controller.converter.SessaoConverter;
-import br.com.er.votacaoapi.model.dto.SessaoDto;
-import br.com.er.votacaoapi.service.SessaoService;
+import br.com.er.votacaoapi.model.dto.ResultadoVotacaoDto;
+import br.com.er.votacaoapi.model.dto.SessaoComVotosDto;
+import br.com.er.votacaoapi.model.dto.SessaoInDto;
+import br.com.er.votacaoapi.model.dto.SessaoOutDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,39 +27,40 @@ import java.util.List;
 @RequestMapping("/sessao")
 public class SessaoController {
 
-    private final SessaoService service;
+    private final SessaoBusiness business;
     private final SessaoConverter converter;
 
     @Operation(summary = "Cria uma nova sessão.")
     @PostMapping
-    public ResponseEntity<SessaoDto> novo(@RequestBody @Valid SessaoDto sessaoDto) {
+    public ResponseEntity<SessaoOutDto> novo(@RequestBody @Valid SessaoInDto sessaoDto) {
 
-        log.info("Nova sessao criada.");
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.converter.entityToDto(this.service.novo(this.converter.dtoToEntity(sessaoDto))));
+        log.info("Nova sessão criada.");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.converter.entityToSessaoOutDto(this.business.novo(this.converter.dtoToEntity(sessaoDto))));
     }
 
     @Operation(summary = "Retorna uma lista com todas sessões.")
     @GetMapping
-    public ResponseEntity<List<SessaoDto>> buscarTodos() {
-        return ResponseEntity.ok(this.converter.listEntityToListDto(this.service.buscarTodos()));
+    public ResponseEntity<List<SessaoOutDto>> buscarTodos() {
+        return ResponseEntity.ok(this.converter.listEntityToListDto(this.business.buscarTodasSessoes()));
+    }
+
+    @Operation(summary = "Retorna um objeto Sessão contendo os votos.")
+    @GetMapping("/{idSessao}/votos")
+    public ResponseEntity<SessaoComVotosDto> buscarTodosVotosDaSessao(@PathVariable("idSessao") Long idSessao) {
+        return ResponseEntity.ok(this.converter.sessaoToSessaoComVotos(this.business.definirVotosDaSessao(idSessao)));
     }
 
     @Operation(summary = "Busca uma sessão pelo id.")
     @GetMapping("/{id}")
-    public ResponseEntity<SessaoDto> buscar(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.converter.entityToDto(this.service.buscar(id)));
+    public ResponseEntity<SessaoOutDto> buscar(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.converter.entityToSessaoOutDto(this.business.buscarSessao(id)));
     }
 
-    @Operation(summary = "Edita as informações de uma sessão.")
-    @PutMapping("/{id}")
-    public ResponseEntity<SessaoDto> editar(@PathVariable("id") Long id, @RequestBody @Valid SessaoDto sessaoDto) {
-        return ResponseEntity.ok(this.converter.entityToDto(this.service.editar(id, this.converter.dtoToEntity(sessaoDto))));
+    @Operation(summary = "Retorna o resultado da votação de uma determinada sessão.")
+    @GetMapping("/{idSessao}/resultado")
+    public ResponseEntity<ResultadoVotacaoDto> resultadoVotacao(@PathVariable("idSessao") Long idSessao) {
+        return ResponseEntity.ok(this.business.contabilizarVotos(idSessao));
     }
 
-    @Operation(summary = "Exclui uma sessão.")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluir(@PathVariable("id") Long id) {
-        this.service.excluir(id);
-        return ResponseEntity.noContent().build();
-    }
 }
