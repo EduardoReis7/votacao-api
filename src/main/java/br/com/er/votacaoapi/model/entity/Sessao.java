@@ -1,5 +1,6 @@
 package br.com.er.votacaoapi.model.entity;
 
+import br.com.er.votacaoapi.model.enums.StatusSessaoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +32,8 @@ public class Sessao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long duracao;
+    @Enumerated(value = EnumType.STRING)
+    private StatusSessaoEnum status;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private Long idPauta;

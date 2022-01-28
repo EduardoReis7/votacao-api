@@ -2,6 +2,7 @@ package br.com.er.votacaoapi.service;
 
 import br.com.er.votacaoapi.exception.NaoEncontradoException;
 import br.com.er.votacaoapi.model.entity.Sessao;
+import br.com.er.votacaoapi.model.enums.StatusSessaoEnum;
 import br.com.er.votacaoapi.repository.SessaoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,14 @@ public class SessaoService {
         return this.repository.findAll();
     }
 
+    public List<Sessao> buscarTodasComStatusAberta() {
+        return this.repository.findAllByStatus(StatusSessaoEnum.ABERTA);
+    }
+
     public Sessao buscar(Long id) {
         return this.repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Sessão não encontrada."));
     }
+
 
     public void excluirTudo() {
         this.repository.deleteAll();
