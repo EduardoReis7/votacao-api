@@ -1,7 +1,6 @@
 package br.com.er.votacaoapi.business;
 
 import br.com.er.votacaoapi.exception.SessaoEncerradaException;
-import br.com.er.votacaoapi.exception.VotoJaEfetuadoException;
 import br.com.er.votacaoapi.helper.AssociadoHelper;
 import br.com.er.votacaoapi.helper.SessaoHelper;
 import br.com.er.votacaoapi.helper.VotoHelper;

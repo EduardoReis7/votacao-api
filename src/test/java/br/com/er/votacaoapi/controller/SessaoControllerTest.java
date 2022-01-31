@@ -6,7 +6,6 @@ import br.com.er.votacaoapi.helper.SessaoHelper;
 import br.com.er.votacaoapi.model.dto.SessaoComVotosDto;
 import br.com.er.votacaoapi.model.dto.SessaoInDto;
 import br.com.er.votacaoapi.model.dto.SessaoOutDto;
-import br.com.er.votacaoapi.model.entity.Pauta;
 import br.com.er.votacaoapi.model.entity.Sessao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
