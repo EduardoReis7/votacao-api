@@ -46,20 +46,20 @@ public class SessaoBusiness {
 
     public Sessao definirVotosDaSessao(Long idSessao) {
         Sessao sessao = this.sessaoService.buscar(idSessao);
-        sessao.setVotos(this.votoService.buscarPorIdSessao(idSessao));
+        sessao.setVotos(this.votoService.buscarTodosPorIdSessao(idSessao));
         return sessao;
     }
 
     public void contabilizarVotos(Long idSessao) {
 
         this.producer.sendMessage(idSessao, ResultadoVotacaoDto.builder()
-                .votosAFavor(this.votoService.buscarPorIdSessao(idSessao).stream()
+                .votosAFavor(this.votoService.buscarTodosPorIdSessao(idSessao).stream()
                         .filter(voto -> voto.getVoto().equals(VotoEnum.SIM))
                         .count())
-                .votosContra(this.votoService.buscarPorIdSessao(idSessao).stream()
+                .votosContra(this.votoService.buscarTodosPorIdSessao(idSessao).stream()
                         .filter(voto -> voto.getVoto().equals(VotoEnum.NAO))
                         .count())
-                .total(this.votoService.buscarPorIdSessao(idSessao).size())
+                .total(this.votoService.buscarTodosPorIdSessao(idSessao).size())
                 .build());
     }
 

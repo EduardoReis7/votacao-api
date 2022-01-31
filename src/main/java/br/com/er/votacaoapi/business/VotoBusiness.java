@@ -31,7 +31,7 @@ public class VotoBusiness {
     }
 
     public List<Voto> buscarVotosPorSessao(Long idSessao) {
-        return this.votoService.buscarPorIdSessao(idSessao);
+        return this.votoService.buscarTodosPorIdSessao(idSessao);
     }
 
     public List<Voto> buscarTodosVotos() {

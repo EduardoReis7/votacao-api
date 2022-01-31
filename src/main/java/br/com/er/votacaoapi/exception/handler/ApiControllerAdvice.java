@@ -8,12 +8,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value = Exception.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<Error> handleInternalServerErrorException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .body(Error.builder()
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .dateTime(LocalDateTime.now())
+                        .message(ex.getLocalizedMessage())
+                        .build()
+                );
+    }
 
     @ExceptionHandler(value = NaoEncontradoException.class)
     public ResponseEntity<Error> handleNotFoundException(RuntimeException ex) {

@@ -26,7 +26,7 @@ public class VotoService {
         return this.repository.findById(id).orElseThrow(() -> new NaoEncontradoException("Voto não encontrado"));
     }
 
-    public List<Voto> buscarPorIdSessao(Long idSessao) {
+    public List<Voto> buscarTodosPorIdSessao(Long idSessao) {
         return this.repository.findAllByIdSessao(idSessao);
     }
 }

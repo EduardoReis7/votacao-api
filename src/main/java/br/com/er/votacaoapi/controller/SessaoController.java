@@ -57,10 +57,4 @@ public class SessaoController {
         return ResponseEntity.ok(this.converter.entityToSessaoOutDto(this.business.buscarSessao(id)));
     }
 
-//    @Operation(summary = "Retorna o resultado da votação de uma determinada sessão.")
-//    @GetMapping("/{idSessao}/resultado")
-//    public ResponseEntity<ResultadoVotacaoDto> resultadoVotacao(@PathVariable("idSessao") Long idSessao) {
-//        return ResponseEntity.ok(this.business.contabilizarVotos(idSessao));
-//    }
-
 }
