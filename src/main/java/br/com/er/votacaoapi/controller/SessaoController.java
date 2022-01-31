@@ -2,7 +2,6 @@ package br.com.er.votacaoapi.controller;
 
 import br.com.er.votacaoapi.business.SessaoBusiness;
 import br.com.er.votacaoapi.controller.converter.SessaoConverter;
-import br.com.er.votacaoapi.model.dto.ResultadoVotacaoDto;
 import br.com.er.votacaoapi.model.dto.SessaoComVotosDto;
 import br.com.er.votacaoapi.model.dto.SessaoInDto;
 import br.com.er.votacaoapi.model.dto.SessaoOutDto;

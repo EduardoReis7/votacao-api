@@ -1,6 +1,5 @@
 package br.com.er.votacaoapi.model.dto;
 
-import br.com.er.votacaoapi.model.entity.Pauta;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
