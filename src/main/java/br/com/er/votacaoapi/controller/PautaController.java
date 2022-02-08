@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -58,9 +59,9 @@ public class PautaController {
 
     @Operation(summary = "Exclui uma pauta.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluir(@PathVariable("id") Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable("id") Long id) {
         this.service.excluir(id);
         log.info("Pauta removida. Id: {}.", id);
-        return ResponseEntity.noContent().build();
     }
 }

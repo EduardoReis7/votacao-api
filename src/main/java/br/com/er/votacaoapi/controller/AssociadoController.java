@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -61,10 +62,10 @@ public class AssociadoController {
 
     @Operation(summary = "Exclui um associado.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluir(@PathVariable("id") Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable("id") Long id) {
 
         this.service.excluir(id);
         log.info("Associado excluído. Id: {}.", id);
-        return ResponseEntity.noContent().build();
     }
 }
